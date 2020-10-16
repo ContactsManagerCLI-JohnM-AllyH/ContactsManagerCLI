@@ -1,3 +1,5 @@
+package contacts;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +20,6 @@ public class ContactsManager {
         Path path = Paths.get("data/" + fileName);
         List<String> fileContents = Files.readAllLines(path);
         addData(fileContents);
-        System.out.println(fileContents.toString());
     }
 
     public ContactsManager(Path path) throws IOException {
