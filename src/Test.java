@@ -1,17 +1,17 @@
-public class Test {
-    public static void main(String[] args) {
-        Contact ally = new Contact("Ally", "210-000-0000");
-        Contact john = new Contact("John", "512-000-0000");
-        Contact luna = new Contact("Luna", "890-000-0000");
-        Contact liz = new Contact("Liz", "900-000-0000");
-//        System.out.println(ally.getContactInfo());
-//        System.out.println(john.getContactInfo());
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-        ContactsManager contactList = new ContactsManager();
-        contactList.addContact(ally);
-        contactList.addContact(john);
-        contactList.addContact(luna);
-        contactList.addContact(liz);
+public class Test {
+    public static void main(String[] args) throws IOException {
+
+//        ContactsManager contactList = new ContactsManager("Ally", "210-000-000",
+//                "John", "512-000-0000",
+//                "Luna", "890-000-0000",
+//                "Liz", "900-000-0000");
+
+        ContactsManager contactList = new ContactsManager("init.txt");
+
         contactList.printContacts();
         System.out.println();
 

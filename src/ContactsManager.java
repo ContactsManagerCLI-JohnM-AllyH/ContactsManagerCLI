@@ -1,11 +1,43 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class ContactsManager {
 
-    private HashMap<String, Contact> contacts = new HashMap<>();
+    private final HashMap<String, Contact> contacts = new HashMap<>();
 
     public void addContact(Contact contact){
         contacts.put(contact.getName().toLowerCase(), contact);
+    }
+
+    public ContactsManager(String fileName) throws IOException {
+        Path path = Paths.get("data/" + fileName);
+        List<String> fileContents = Files.readAllLines(path);
+        addData(fileContents);
+        System.out.println(fileContents.toString());
+    }
+
+    public ContactsManager(Path path) throws IOException {
+
+        List<String> fileContents = Files.readAllLines(path);
+        addData(fileContents);
+        System.out.println(fileContents.toString());
+    }
+
+    public ContactsManager(String ...data) {
+        addData(Arrays.asList(data));
+    }
+
+    public void addData(List<String> data) {
+        for (short i = 0; i < data.size(); i += 2) {
+            String name = data.get(i);
+            String phoneNumber = data.get(i + 1);
+            addContact(new Contact(name, phoneNumber));
+        }
     }
 
     public void printContacts(){
