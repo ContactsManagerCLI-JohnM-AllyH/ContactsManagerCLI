@@ -1,5 +1,7 @@
+import java.util.HashMap;
+
 public class Contact {
-//    Used to build a contact
+//Used to build a contact
 
     private String name;
     private String phoneNumber;
