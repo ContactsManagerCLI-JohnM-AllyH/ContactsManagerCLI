@@ -1,3 +1,5 @@
+package contacts;
+
 import java.util.HashMap;
 
 public class Contact {
@@ -6,10 +8,13 @@ public class Contact {
     private String name;
     private String phoneNumber;
 
+//    private static final String format = "(xxx) xxx-xxxx";
+
     public Contact(String aName, String aPhoneNumber) {
         this.name = aName;
         this.phoneNumber = aPhoneNumber;
     }
+
 
     public String getName() {
         return name;
