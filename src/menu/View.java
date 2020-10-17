@@ -10,7 +10,7 @@ public class View extends MenuItem {
 
     @Override
     public boolean isAvailable() {
-        return !ContactsManager.isEmpty();
+        return ContactsManager.isNotEmpty();
     }
 
     @Override

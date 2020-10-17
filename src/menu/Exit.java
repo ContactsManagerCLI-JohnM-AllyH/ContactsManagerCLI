@@ -1,5 +1,7 @@
 package menu;
 
+import contacts.ContactsManager;
+
 public class Exit extends MenuItem {
 
     public Exit() {
@@ -8,6 +10,7 @@ public class Exit extends MenuItem {
 
     @Override
     public void action() {
+        ContactsManager.saveData();
         System.out.println("Thank you and have a nice day!");
         System.exit(0);
     }

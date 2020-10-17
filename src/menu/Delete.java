@@ -1,8 +1,9 @@
 package menu;
 
-import contacts.Contact;
 import contacts.ContactsManager;
 import input.Input;
+
+import java.io.IOException;
 
 public class Delete extends MenuItem {
 
@@ -19,6 +20,7 @@ public class Delete extends MenuItem {
 
         if (ContactsManager.hasContact(name)) {
             ContactsManager.deleteContact(name);
+            ContactsManager.saveData();
             System.out.println("\n" + name + " successfully deleted from list\n");
         } else {
             System.out.println("\n" + name + " doesn't exist");
@@ -27,6 +29,6 @@ public class Delete extends MenuItem {
 
     @Override
     public boolean isAvailable() {
-        return !ContactsManager.isEmpty();
+        return ContactsManager.isNotEmpty();
     }
 }

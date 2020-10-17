@@ -1,5 +1,6 @@
 package contacts;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ContactsManager {
+
+    public static final String FILE_NAME = "init.txt";
 
     private static final HashMap<String, Contact> contacts = new HashMap<>();
 
@@ -46,14 +49,35 @@ public class ContactsManager {
         return false;
     }
 
-    public static boolean isEmpty() {
-        return contacts.size() == 0;
+    public static boolean isNotEmpty() {
+        return contacts.size() != 0;
+    }
+
+    public static void saveData() {
+        System.out.println("\nSaving...\n");
+
+        try {
+            FileWriter myWriter = new FileWriter("data/" + FILE_NAME);
+            for (Contact contact: values()) {
+                myWriter.write(contact.getName() + "\n");
+                myWriter.write(contact.getPhoneNumber() + "\n");
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("\nSave file missing\n");
+        }
     }
 
     public static void loadFromFile(String fileName) throws IOException {
-        Path path = Paths.get("data/" + fileName);
-        List<String> fileContents = Files.readAllLines(path);
-        addData(fileContents);
+        Path path = Paths.get("data", fileName);
+
+        if (Files.exists(path)) {
+            List<String> fileContents = Files.readAllLines(path);
+            addData(fileContents);
+        } else {
+            System.out.println("\nFile missing: creating new file\n");
+            Files.createFile(path);
+        }
     }
 
     public static int numberOfContacts() {

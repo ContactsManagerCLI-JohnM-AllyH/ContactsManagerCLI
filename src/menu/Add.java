@@ -17,7 +17,7 @@ public class Add extends MenuItem {
         String phone = Input.getString("Enter the phone number");
 
         ContactsManager.addData(Arrays.asList(name, phone));
-
+        ContactsManager.saveData();
         System.out.println("\nAdded " + name + " to the contact list\n");
     }
 

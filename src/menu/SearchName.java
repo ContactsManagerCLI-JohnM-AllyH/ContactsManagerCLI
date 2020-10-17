@@ -1,10 +1,7 @@
 package menu;
 
-import contacts.Contact;
 import contacts.ContactsManager;
 import input.Input;
-
-import java.util.ArrayList;
 
 public class SearchName extends MenuItem {
 
@@ -20,7 +17,7 @@ public class SearchName extends MenuItem {
 
     @Override
     public boolean isAvailable() {
-        return !ContactsManager.isEmpty();
+        return ContactsManager.isNotEmpty();
     }
 
 }
