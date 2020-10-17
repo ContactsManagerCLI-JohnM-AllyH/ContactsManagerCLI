@@ -1,5 +1,7 @@
 package menu;
 
+import contacts.ContactsManager;
+
 public class View extends MenuItem {
 
     public View() {
@@ -8,11 +10,11 @@ public class View extends MenuItem {
 
     @Override
     public boolean isAvailable() {
-        return false;
+        return ContactsManager.isNotEmpty();
     }
 
     @Override
     public void action() {
-
+        ContactsManager.printContacts();
     }
 }
