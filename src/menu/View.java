@@ -15,6 +15,6 @@ public class View extends MenuItem {
 
     @Override
     public void action() {
-        System.out.println("View action()");
+        ContactsManager.printContacts();
     }
 }

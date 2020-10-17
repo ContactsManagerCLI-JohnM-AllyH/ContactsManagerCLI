@@ -1,6 +1,8 @@
 package menu;
 
+import contacts.Contact;
 import contacts.ContactsManager;
+import input.Input;
 
 public class Delete extends MenuItem {
 
@@ -10,7 +12,17 @@ public class Delete extends MenuItem {
 
     @Override
     public void action() {
-        System.out.println("Delete action()");
+
+        ContactsManager.printContacts();
+
+        String name = Input.getString("Name of the contact to delete");
+
+        if (ContactsManager.hasContact(name)) {
+            ContactsManager.deleteContact(name);
+            System.out.println("\n" + name + " successfully deleted from list\n");
+        } else {
+            System.out.println("\n" + name + " doesn't exist");
+        }
     }
 
     @Override

@@ -1,6 +1,9 @@
 package menu;
 
 import contacts.ContactsManager;
+import input.Input;
+
+import java.util.Arrays;
 
 public class Add extends MenuItem {
 
@@ -10,7 +13,12 @@ public class Add extends MenuItem {
 
     @Override
     public void action() {
-        System.out.println("Add action()");
+        String name = Input.getString("Enter the contact's name");
+        String phone = Input.getString("Enter the phone number");
+
+        ContactsManager.addData(Arrays.asList(name, phone));
+
+        System.out.println("\nAdded " + name + " to the contact list\n");
     }
 
     @Override

@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ContactsManager {
 
@@ -15,23 +13,6 @@ public class ContactsManager {
     public static void addContact(Contact contact){
         contacts.put(contact.getName().toLowerCase(), contact);
     }
-
-//    public ContactsManager(String fileName) throws IOException {
-//        Path path = Paths.get("data/" + fileName);
-//        List<String> fileContents = Files.readAllLines(path);
-//        addData(fileContents);
-//    }
-//
-//    public ContactsManager(Path path) throws IOException {
-//
-//        List<String> fileContents = Files.readAllLines(path);
-//        addData(fileContents);
-//        System.out.println(fileContents.toString());
-//    }
-//
-//    public ContactsManager(String ...data) {
-//        addData(Arrays.asList(data));
-//    }
 
     public static void addData(List<String> data) {
         for (short i = 0; i < data.size(); i += 2) {
@@ -45,6 +26,7 @@ public class ContactsManager {
         for(String name: contacts.keySet()) {
             System.out.println(contacts.get(name).getContactInfo());
         }
+        System.out.println();
     }
 
     public static void deleteContact(String name){
@@ -76,5 +58,46 @@ public class ContactsManager {
 
     public static int numberOfContacts() {
         return contacts.size();
+    }
+
+    public static Set<String> keys() {
+        return contacts.keySet();
+    }
+
+    public static Collection<Contact> values() {
+        return contacts.values();
+    }
+
+    public static Contact getContact(String name) {
+        return contacts.get(name);
+    }
+
+    public static void searchByName(String searchStr) {
+        search(searchStr, "name");
+    }
+
+    public static void searchByNumber(String searchStr) {
+        search(searchStr, "phoneNumber");
+    }
+
+    private static void search(String searchStr, String field) {
+        ArrayList<Contact> results = new ArrayList<>();
+
+        for (Contact contact: values()) {
+
+            String str = field.equalsIgnoreCase("name") ? contact.getName() : contact.getPhoneNumber();
+
+            if (str.toLowerCase().startsWith(searchStr)) {
+                results.add(contact);
+            }
+        }
+
+        System.out.printf("\n%d result%s for '%s'\n\n", results.size(), results.size() == 1 ? "" : "s", searchStr);
+
+        for (Contact contact: results) {
+            System.out.println(contact.getName() + " " + contact.getPhoneNumber());
+        }
+
+        System.out.println();
     }
 }
