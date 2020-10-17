@@ -10,30 +10,30 @@ import java.util.List;
 
 public class ContactsManager {
 
-    private final HashMap<String, Contact> contacts = new HashMap<>();
+    private static final HashMap<String, Contact> contacts = new HashMap<>();
 
-    public void addContact(Contact contact){
+    public static void addContact(Contact contact){
         contacts.put(contact.getName().toLowerCase(), contact);
     }
 
-    public ContactsManager(String fileName) throws IOException {
-        Path path = Paths.get("data/" + fileName);
-        List<String> fileContents = Files.readAllLines(path);
-        addData(fileContents);
-    }
+//    public ContactsManager(String fileName) throws IOException {
+//        Path path = Paths.get("data/" + fileName);
+//        List<String> fileContents = Files.readAllLines(path);
+//        addData(fileContents);
+//    }
+//
+//    public ContactsManager(Path path) throws IOException {
+//
+//        List<String> fileContents = Files.readAllLines(path);
+//        addData(fileContents);
+//        System.out.println(fileContents.toString());
+//    }
+//
+//    public ContactsManager(String ...data) {
+//        addData(Arrays.asList(data));
+//    }
 
-    public ContactsManager(Path path) throws IOException {
-
-        List<String> fileContents = Files.readAllLines(path);
-        addData(fileContents);
-        System.out.println(fileContents.toString());
-    }
-
-    public ContactsManager(String ...data) {
-        addData(Arrays.asList(data));
-    }
-
-    public void addData(List<String> data) {
+    public static void addData(List<String> data) {
         for (short i = 0; i < data.size(); i += 2) {
             String name = data.get(i);
             String phoneNumber = data.get(i + 1);
@@ -41,26 +41,36 @@ public class ContactsManager {
         }
     }
 
-    public void printContacts(){
+    public static void printContacts(){
         for(String name: contacts.keySet()) {
             System.out.println(contacts.get(name).getContactInfo());
         }
     }
 
-    public void deleteContact(String name){
+    public static void deleteContact(String name){
         contacts.remove(name.toLowerCase());
     }
 
-    public boolean hasContact(String name) {
+    public static boolean hasContact(String name) {
         return contacts.containsKey(name.toLowerCase());
     }
 
-    public boolean hasPhoneNumber(String phoneNumber) {
+    public static boolean hasPhoneNumber(String phoneNumber) {
         for(Contact contact : contacts.values()) {
             if(contact.getPhoneNumber().equals(phoneNumber)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static boolean isEmpty() {
+        return contacts.size() == 0;
+    }
+
+    public static void loadFromFile(String fileName) throws IOException {
+        Path path = Paths.get("data/" + fileName);
+        List<String> fileContents = Files.readAllLines(path);
+        addData(fileContents);
     }
 }

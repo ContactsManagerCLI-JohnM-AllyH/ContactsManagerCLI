@@ -1,5 +1,7 @@
 package menu;
 
+import contacts.ContactsManager;
+
 public class Search extends MenuItem {
 
     public Search() {
@@ -8,12 +10,12 @@ public class Search extends MenuItem {
 
     @Override
     public void action() {
-
+        System.out.println("Search action()");
     }
 
     @Override
     public boolean isAvailable() {
-        return false;
+        return !ContactsManager.isEmpty();
     }
 
 }

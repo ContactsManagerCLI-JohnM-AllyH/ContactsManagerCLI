@@ -8,12 +8,12 @@ public class Add extends MenuItem {
 
     @Override
     public void action() {
-
+        System.out.println("Add action()");
     }
 
     @Override
     public boolean isAvailable() {
-        return false;
+        return true;
     }
 
 }

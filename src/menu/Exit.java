@@ -9,12 +9,12 @@ public class Exit extends MenuItem {
 
     @Override
     public void action() {
-
+        System.out.println("Exit action()");
     }
 
     @Override
     public boolean isAvailable() {
-        return false;
+        return true;
     }
 
 
