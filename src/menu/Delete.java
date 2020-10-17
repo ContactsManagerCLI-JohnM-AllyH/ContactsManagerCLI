@@ -3,7 +3,7 @@ package menu;
 public class Delete extends MenuItem {
 
     public Delete() {
-        setDescription("Delete");
+        setDescription("Delete a contact");
     }
 
     @Override

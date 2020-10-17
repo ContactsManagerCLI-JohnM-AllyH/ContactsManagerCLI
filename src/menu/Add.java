@@ -3,7 +3,7 @@ package menu;
 public class Add extends MenuItem {
 
     public Add() {
-        setDescription("Add Contact");
+        setDescription("Add a contact");
     }
 
     @Override

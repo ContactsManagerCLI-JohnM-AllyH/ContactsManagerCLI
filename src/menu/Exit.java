@@ -4,7 +4,7 @@ public class Exit extends MenuItem {
 
 
     public Exit() {
-        setDescription("This is how you exit.");
+        setDescription("Exit");
     }
 
     @Override

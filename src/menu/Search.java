@@ -3,7 +3,7 @@ package menu;
 public class Search extends MenuItem {
 
     public Search() {
-        setDescription("This is how you exit.");
+        setDescription("Search for a contact");
     }
 
     @Override
