@@ -1,5 +1,7 @@
 package menu;
 
+import contacts.ContactsManager;
+
 public class Add extends MenuItem {
 
     public Add() {
@@ -13,7 +15,6 @@ public class Add extends MenuItem {
 
     @Override
     public boolean isAvailable() {
-        return true;
+        return ContactsManager.numberOfContacts() < Integer.MAX_VALUE;
     }
-
 }

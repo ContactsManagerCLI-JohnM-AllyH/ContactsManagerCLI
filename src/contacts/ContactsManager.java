@@ -73,4 +73,8 @@ public class ContactsManager {
         List<String> fileContents = Files.readAllLines(path);
         addData(fileContents);
     }
+
+    public static int numberOfContacts() {
+        return contacts.size();
+    }
 }
