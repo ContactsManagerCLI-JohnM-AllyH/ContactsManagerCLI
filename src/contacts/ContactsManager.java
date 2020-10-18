@@ -6,8 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.CyclicBarrier;
 
 public class ContactsManager {
+    //Text Colors for Console
+    public static final String CYAN = "\033[0;36m";    // CYAN
+    public static final String YELLOW = "\033[0;33m";  // YELLOW
+    public static final String RESET = "\033[0m";  // Text Reset
 
     public static final String FILE_NAME = "init.txt";
 
@@ -26,8 +31,11 @@ public class ContactsManager {
     }
 
     public static void printContacts(){
+        System.out.println(CYAN + "Name      " + YELLOW + "|" + CYAN + " Phone Number " + YELLOW + "|");
+        System.out.println("--------------------------" + RESET);
         for(String name: contacts.keySet()) {
-            System.out.println(contacts.get(name).getContactInfo());
+            System.out.printf("%-10s" + YELLOW + "| " + RESET, contacts.get(name).getName());
+            System.out.printf("%-13s" + YELLOW + "|\n" + RESET,contacts.get(name).getPhoneNumber());
         }
         System.out.println();
     }
@@ -119,7 +127,10 @@ public class ContactsManager {
         System.out.printf("\n%d result%s for '%s'\n\n", results.size(), results.size() == 1 ? "" : "s", searchStr);
 
         for (Contact contact: results) {
-            System.out.println(contact.getName() + " " + contact.getPhoneNumber());
+            System.out.println(CYAN + "Name      " + YELLOW + "|" + CYAN + " Phone Number " + YELLOW + "|");
+            System.out.println("--------------------------" + RESET);
+            System.out.printf("%-10s" + YELLOW + "| " + RESET, contact.getName());
+            System.out.printf("%-13s" + YELLOW + "|\n" + RESET,contact.getPhoneNumber());
         }
 
         System.out.println();
