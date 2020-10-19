@@ -1,17 +1,10 @@
 package menu;
 
-public class MenuItem implements Action {
+abstract public class MenuItem {
     private String description;
 
-    @Override
-    public void action() {
-
-    }
-
-    @Override
-    public boolean isAvailable() {
-        return false;
-    }
+    public abstract void action();
+    public abstract boolean isAvailable();
 
     public void setDescription(String description) {
         this.description = description;

@@ -2,6 +2,7 @@ package contacts;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +18,8 @@ public class ContactsManager {
     public static final String FILE_NAME = "init.txt";
 
     private static final HashMap<String, Contact> contacts = new HashMap<>();
+
+    public static final byte[] PHONE_LENGTHS = {10, 7};
 
     public static void addContact(Contact contact){
         contacts.put(contact.getName().toLowerCase(), contact);
@@ -134,5 +137,14 @@ public class ContactsManager {
         }
 
         System.out.println();
+    }
+
+    public static boolean isValidPhoneNumber(StringBuilder number){
+        for(byte length: PHONE_LENGTHS){
+            if(number.length() == length){
+                return true;
+            }
+        }
+        return false;
     }
 }
