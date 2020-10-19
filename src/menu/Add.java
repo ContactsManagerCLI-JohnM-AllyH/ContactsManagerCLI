@@ -15,8 +15,29 @@ public class Add extends MenuItem {
 
     @Override
     public void action() {
-        String name = Input.getString("Enter the contact's name");
-        String phone = Input.getString("Enter the phone number");
+        String name = Input.getString("Enter the contact's name").trim();
+        String phone;
+        do {
+            phone = Input.getString("Enter the phone number").trim();
+            StringBuilder newPhone = new StringBuilder();
+
+            for(char ch: phone.toCharArray()){
+                byte ascii = (byte) ch;
+                if(ascii >= 48 && ascii <= 57) {
+                    newPhone.append(ch);
+                }
+            }
+
+            if(!ContactsManager.isValidPhoneNumber(newPhone)){
+                System.out.println("The phone number needs to be one of the following lengths:");
+                for(byte number : ContactsManager.PHONE_LENGTHS){
+                    System.out.println(number);
+                }
+            } else {
+                break;
+            }
+        } while(true);
+
 
         if(!ContactsManager.hasContact(name)) {
             ContactsManager.addData(Arrays.asList(name, phone));
