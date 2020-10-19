@@ -19,7 +19,9 @@ public class ContactsManager {
 
     private static final HashMap<String, Contact> contacts = new HashMap<>();
 
-    public static final byte[] PHONE_LENGTHS = {10, 7};
+    public static final ArrayList<PhoneFormat> PHONE_LENGTHS = new ArrayList<PhoneFormat>(Arrays.asList(
+            new PhoneFormat("###-####", (byte) 7),
+            new PhoneFormat("###-###-####", (byte) 10)));
 
     public static void addContact(Contact contact){
         contacts.put(contact.getName().toLowerCase(), contact);
@@ -38,7 +40,7 @@ public class ContactsManager {
         System.out.println("--------------------------" + RESET);
         for(String name: contacts.keySet()) {
             System.out.printf("%-10s" + YELLOW + "| " + RESET, contacts.get(name).getName());
-            System.out.printf("%-13s" + YELLOW + "|\n" + RESET,contacts.get(name).getPhoneNumber());
+            System.out.printf("%-13s" + YELLOW + "|\n" + RESET, contacts.get(name).getPhoneNumber());
         }
         System.out.println();
     }
@@ -139,12 +141,52 @@ public class ContactsManager {
         System.out.println();
     }
 
-    public static boolean isValidPhoneNumber(StringBuilder number){
-        for(byte length: PHONE_LENGTHS){
-            if(number.length() == length){
+    public static boolean isValidPhoneNumber(String number){
+        for(PhoneFormat format: PHONE_LENGTHS){
+            if(number.length() == format.getLength()){
                 return true;
             }
         }
         return false;
     }
+
+    public static String formatPhoneNumber(String number) {
+
+        String format = getFormat(number); //###-###-####
+        StringBuilder formattedNumber = new StringBuilder(); //""
+
+        System.out.println("formatPhoneNumber");
+        System.out.println("number = " + number);
+
+        if (format.equalsIgnoreCase("default")) {
+            return number;
+        }
+
+        byte strIndex = 0;
+
+        for (char ch: format.toCharArray()) { // ###-####
+            if (ch == '#') {
+                formattedNumber.append(number.toCharArray()[strIndex]);
+                strIndex++;
+                if (number.length() == strIndex){
+                    break;
+                }
+            } else {
+                formattedNumber.append(ch);
+            }
+        }
+
+        return formattedNumber.toString();
+
+    }
+
+    public static String getFormat(String phoneNumber) {
+        for(PhoneFormat format: PHONE_LENGTHS){
+            if(phoneNumber.length() == format.getLength()){
+                return format.getFormat();
+            }
+        }
+        return "default";
+    }
+
 }

@@ -1,10 +1,8 @@
 package menu;
 
-import contacts.Contact;
 import contacts.ContactsManager;
+import contacts.PhoneFormat;
 import input.Input;
-
-import java.io.Console;
 import java.util.Arrays;
 
 public class Add extends MenuItem {
@@ -16,31 +14,25 @@ public class Add extends MenuItem {
     @Override
     public void action() {
         String name = Input.getString("Enter the contact's name").trim();
-        String phone;
+        String phone, newPhone;
         do {
             phone = Input.getString("Enter the phone number").trim();
-            StringBuilder newPhone = new StringBuilder();
-
-            for(char ch: phone.toCharArray()){
-                byte ascii = (byte) ch;
-                if(ascii >= 48 && ascii <= 57) {
-                    newPhone.append(ch);
-                }
-            }
+            newPhone = PhoneFormat.onlyNumbers(phone);
 
             if(!ContactsManager.isValidPhoneNumber(newPhone)){
                 System.out.println("The phone number needs to be one of the following lengths:");
-                for(byte number : ContactsManager.PHONE_LENGTHS){
-                    System.out.println(number);
+                for(PhoneFormat format: ContactsManager.PHONE_LENGTHS){
+                    System.out.println(format.getFormat() + " " + format.getLength());
                 }
             } else {
                 break;
             }
         } while(true);
 
+        String formattedNumber = ContactsManager.formatPhoneNumber(newPhone);
 
         if(!ContactsManager.hasContact(name)) {
-            ContactsManager.addData(Arrays.asList(name, phone));
+            ContactsManager.addData(Arrays.asList(name, formattedNumber));
             ContactsManager.saveData();
             System.out.println("\nAdded " + name + " to the contact list\n");
         } else {
@@ -49,11 +41,10 @@ public class Add extends MenuItem {
             );
             System.out.println();
             if(confirm.equalsIgnoreCase("y") || confirm.equalsIgnoreCase("yes")) {
-                ContactsManager.addContact(new Contact(name, phone));
+                ContactsManager.addData(Arrays.asList(name, formattedNumber));
             } else {
                 System.out.println("\"Add contact\" cancelled ...\n");
             }
-
         }
     }
 
