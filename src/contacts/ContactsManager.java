@@ -125,10 +125,10 @@ public class ContactsManager {
         }
 
         System.out.printf("\n%d result%s for '%s'\n\n", results.size(), results.size() == 1 ? "" : "s", searchStr);
+        System.out.println(CYAN + "Name      " + YELLOW + "|" + CYAN + " Phone Number " + YELLOW + "|");
+        System.out.println("--------------------------" + RESET);
 
         for (Contact contact: results) {
-            System.out.println(CYAN + "Name      " + YELLOW + "|" + CYAN + " Phone Number " + YELLOW + "|");
-            System.out.println("--------------------------" + RESET);
             System.out.printf("%-10s" + YELLOW + "| " + RESET, contact.getName());
             System.out.printf("%-13s" + YELLOW + "|\n" + RESET,contact.getPhoneNumber());
         }
